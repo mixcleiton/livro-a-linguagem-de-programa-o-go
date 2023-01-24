@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"github.com/mixcleiton/livro-a-linguagem-de-programa-o-go/lissajous"
+)
 
 func main() {
-	fmt.Println("teste")
+	lissajous.Principal()
 }
