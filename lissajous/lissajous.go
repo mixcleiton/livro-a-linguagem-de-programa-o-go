@@ -11,6 +11,8 @@ import (
 	"time"
 )
 
+//go build .\main.go
+
 var (
 	verde    = color.RGBA{00, 80, 00, 5}
 	vermelho = color.RGBA{255, 0, 0, 5}

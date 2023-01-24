@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+//go run .\main.go gopl.io
+
 func Buscador() {
 	for _, url := range os.Args[1:] {
 
