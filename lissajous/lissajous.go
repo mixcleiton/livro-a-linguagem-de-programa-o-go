@@ -11,11 +11,17 @@ import (
 	"time"
 )
 
-var palette = []color.Color{color.White, color.Black}
+var (
+	verde    = color.RGBA{00, 80, 00, 5}
+	vermelho = color.RGBA{255, 0, 0, 5}
+	palette  = []color.Color{color.White, color.Black, verde, vermelho}
+)
 
 const (
-	whiteIndex = 0
-	blackIndex = 1
+	whiteIndex    = 0
+	blackIndex    = 1
+	verdeIndex    = 2
+	vermelhoIndex = 3
 )
 
 func Principal() {
@@ -41,18 +47,25 @@ func lissajous(out io.Writer) {
 	freq := rand.Float64() * 3.0 //frequência relativa do oscilador
 	anim := gif.GIF{LoopCount: nframes}
 	phase := 0.0
+	corIndex := 0
 	for i := 0; i < nframes; i++ {
 		rect := image.Rect(0, 0, 2*size+1, 2*size+1)
 		img := image.NewPaletted(rect, palette)
 		for t := 0.0; t < cycles*2*math.Pi; t += res {
 			x := math.Sin(t)
 			y := math.Sin(t*freq + phase)
-			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5), blackIndex)
+			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5), uint8(corIndex))
 		}
 
 		phase += 0.1
 		anim.Delay = append(anim.Delay, delay)
 		anim.Image = append(anim.Image, img)
+
+		if corIndex < 3 {
+			corIndex++
+		} else {
+			corIndex = 0
+		}
 	}
 	gif.EncodeAll(out, &anim)
 }
