@@ -1,9 +1,8 @@
 package main
 
-import (
-	"github.com/mixcleiton/livro-a-linguagem-de-programa-o-go/lissajous"
-)
+import "github.com/mixcleiton/livro-a-linguagem-de-programa-o-go/buscadorurl"
 
 func main() {
-	lissajous.Principal()
+	//lissajous.Principal()
+	buscadorurl.Buscador()
 }

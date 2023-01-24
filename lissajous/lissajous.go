@@ -26,7 +26,7 @@ const (
 
 func Principal() {
 	rand.Seed(time.Now().UTC().UnixNano())
-	f, err := os.Create("out2.gif")
+	f, err := os.Create("arquivos/out2.gif")
 	if err != nil {
 		panic(err)
 	}
