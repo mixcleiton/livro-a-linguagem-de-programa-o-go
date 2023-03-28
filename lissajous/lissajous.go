@@ -26,6 +26,14 @@ const (
 	vermelhoIndex = 3
 )
 
+type ValuesLissajous struct {
+	Cycles  int     //número de revoluções completas do oscilador x
+	Res     float64 //resolução angular
+	Size    int     //canvas da imagem cobre de [-size..+size]
+	NFrames int     //número de quadros da animação
+	Delay   int     //tempo entre quadros em unidades de 10ms
+}
+
 func Principal() {
 	rand.Seed(time.Now().UTC().UnixNano())
 	f, err := os.Create("arquivos/out2.gif")
@@ -33,34 +41,32 @@ func Principal() {
 		panic(err)
 	}
 	defer f.Close()
-	lissajous(f)
+	Lissajous(f, ValuesLissajous{
+		Cycles:  5,
+		Res:     0.001,
+		Size:    100,
+		NFrames: 64,
+		Delay:   8,
+	})
 }
 
-func lissajous(out io.Writer) {
-
-	const (
-		cycles  = 5     //número de revoluções completas do oscilador x
-		res     = 0.001 //resolução angular
-		size    = 100   //canvas da imagem cobre de [-size..+size]
-		nframes = 64    //número de quadros da animação
-		delay   = 8     //tempo entre quadros em unidades de 10ms
-	)
+func Lissajous(out io.Writer, values ValuesLissajous) {
 
 	freq := rand.Float64() * 3.0 //frequência relativa do oscilador
-	anim := gif.GIF{LoopCount: nframes}
+	anim := gif.GIF{LoopCount: values.NFrames}
 	phase := 0.0
 	corIndex := 0
-	for i := 0; i < nframes; i++ {
-		rect := image.Rect(0, 0, 2*size+1, 2*size+1)
+	for i := 0; i < values.NFrames; i++ {
+		rect := image.Rect(0, 0, 2*values.Size+1, 2*values.Size+1)
 		img := image.NewPaletted(rect, palette)
-		for t := 0.0; t < cycles*2*math.Pi; t += res {
+		for t := 0.0; t < float64(values.Cycles)*2*math.Pi; t += values.Res {
 			x := math.Sin(t)
 			y := math.Sin(t*freq + phase)
-			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5), uint8(corIndex))
+			img.SetColorIndex(values.Size+int(x*float64(values.Size)+0.5), values.Size+int(y*float64(values.Size)+0.5), uint8(corIndex))
 		}
 
 		phase += 0.1
-		anim.Delay = append(anim.Delay, delay)
+		anim.Delay = append(anim.Delay, values.Delay)
 		anim.Image = append(anim.Image, img)
 
 		if corIndex < 3 {

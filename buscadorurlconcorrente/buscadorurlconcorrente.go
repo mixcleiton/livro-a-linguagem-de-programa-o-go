@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+//go run .\main.go https://golang.org http://gopl.io https://godoc.org
+
 func BuscadorConcorrente() {
 	start := time.Now()
 	ch := make(chan string)
