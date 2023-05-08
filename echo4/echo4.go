@@ -1,4 +1,4 @@
-package echo4
+package main
 
 import (
 	"flag"
@@ -8,6 +8,10 @@ import (
 
 var n = flag.Bool("n", false, "omit trailing newline")
 var sep = flag.String("s", " ", "separator")
+
+func main() {
+	NewEcho4()
+}
 
 func NewEcho4() {
 	flag.Parse()

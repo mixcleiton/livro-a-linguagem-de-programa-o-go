@@ -1,10 +1,11 @@
-package lissajous
+package main
 
 import (
 	"image"
 	"image/color"
 	"image/gif"
 	"io"
+	"log"
 	"math"
 	"math/rand"
 	"os"
@@ -12,6 +13,10 @@ import (
 )
 
 //go build .\main.go
+
+func main() {
+	Principal()
+}
 
 var (
 	verde    = color.RGBA{00, 80, 00, 5}
@@ -38,7 +43,7 @@ func Principal() {
 	rand.Seed(time.Now().UTC().UnixNano())
 	f, err := os.Create("arquivos/out2.gif")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	defer f.Close()
 	Lissajous(f, ValuesLissajous{
