@@ -1,4 +1,4 @@
-package buscadorurlconcorrente
+package main
 
 import (
 	"fmt"
@@ -11,7 +11,7 @@ import (
 
 //go run .\main.go https://golang.org http://gopl.io https://godoc.org
 
-func BuscadorConcorrente() {
+func main() {
 	start := time.Now()
 	ch := make(chan string)
 	for _, url := range os.Args[1:] {

@@ -1,4 +1,4 @@
-package buscadorurl
+package main
 
 import (
 	"fmt"
@@ -8,9 +8,7 @@ import (
 	"strings"
 )
 
-//go run .\main.go gopl.io
-
-func Buscador() {
+func main() {
 	for _, url := range os.Args[1:] {
 
 		if !strings.HasPrefix(url, "http://") {

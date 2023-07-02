@@ -1,4 +1,4 @@
-package servidor
+package main
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ var (
 	count int
 )
 
-func NewServer() {
+func main() {
 	http.HandleFunc("/", handler) //cada requisição chama handler
 	http.HandleFunc("/count", counter)
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
